@@ -1,0 +1,35 @@
+module tb_alu_4bit;
+
+    reg [3:0] A;
+    reg [3:0] B;
+    reg [1:0] ALU_Sel;
+
+    wire [3:0] Result;
+    wire CarryOut;
+
+    alu_4bit uut (
+        .A(A), 
+        .B(B), 
+        .ALU_Sel(ALU_Sel), 
+        .Result(Result), 
+        .CarryOut(CarryOut)
+    );
+
+    initial begin
+        $monitor("Zaman = %0t | A = %b (%d) | B = %b (%d) | Islem = %b | Sonuc = %b (%d) | Carry = %b", 
+                 $time, A, A, B, B, ALU_Sel, Result, Result, CarryOut);
+
+        A = 4'd5; B = 4'd3; ALU_Sel = 2'b00; #10;
+        
+        A = 4'd10; B = 4'd7; ALU_Sel = 2'b00; #10;
+
+        A = 4'd9; B = 4'd4; ALU_Sel = 2'b01; #10;
+
+        A = 4'b1100; B = 4'b1010; ALU_Sel = 2'b10; #10;
+
+        A = 4'b0101; B = 4'b0011; ALU_Sel = 2'b11; #10;
+
+        $finish;
+    end
+      
+endmodule
